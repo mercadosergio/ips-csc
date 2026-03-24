@@ -1,6 +1,11 @@
 # IPS CUIDADO SEGURO EN CASA
 ## Prueba técnica - Gestión de Ordenes - API
 
+## Requisitos técnicos
+- Node.js
+- Nest.js
+- SQL Server
+
 ## Instalación
 
 1. En la terminal clone el repositorio `https://github.com/mercadosergio/ips-csc.git`
