@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/config/prisma/prisma.service';
 @Injectable()
 export class OrdersService {
-  findAll() {
-    return [];
-  }
+  constructor(private prisma: PrismaService) {}
 
-  findOne(id: number) {
-    return { id, name: `Order #${id}` };
+  findAll() {
+    return this.prisma.order.findMany();
   }
 }

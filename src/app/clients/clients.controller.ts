@@ -6,7 +6,8 @@ export class ClientsController {
 
   @Get()
   findAll() {
-    return this.clientsService.findAll();
+    const clients = this.clientsService.findAll();
+    return { clientes: clients };
   }
 
   @Get(':id')
