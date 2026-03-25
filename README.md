@@ -16,3 +16,9 @@
 
 
 En la raiz de este proyecto encontrará el archivo con los scripts de la estructura de la base de datos
+
+## Endpoints
+
+- `/clients`
+- `/clients/:id`
+- `/orders`
