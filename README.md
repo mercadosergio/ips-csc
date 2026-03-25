@@ -13,3 +13,6 @@
 3. Configurar entorno de Prisma ORM con el comando en la terminal `npx prisma generate`
 4. Ubicarse en la raiz del proyecto en la terminal y ejecutar `npm install`.
 5. Ejecutar la aplicación `npm run start:dev`
+
+
+En la raiz de este proyecto encontrará el archivo con los scripts de la estructura de la base de datos
