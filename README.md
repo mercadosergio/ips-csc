@@ -22,3 +22,6 @@ En la raiz de este proyecto encontrará el archivo con los scripts de la estruct
 - `/clients`
 - `/clients/:id`
 - `/orders`
+
+
+NOTA: Se soluciono el error de ejecución de la API REST un día después, si no es válido en la prueba técnica, puede devolver al ultimo commit del dia de la prueba `git checkout f0cf4cd5323625f58217ff1695ae5e4d7907ba6f`
