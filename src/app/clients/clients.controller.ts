@@ -6,12 +6,6 @@ export class ClientsController {
 
   @Get()
   findAll() {
-    const clients = this.clientsService.findAll();
-    return { clientes: clients };
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.clientsService.findOne(+id);
+    return this.clientsService.findAll();
   }
 }
