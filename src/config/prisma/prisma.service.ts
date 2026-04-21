@@ -1,29 +1,24 @@
-import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import { PrismaClient } from 'src/generated/prisma/client';
+import { Injectable } from '@nestjs/common';
 import { PrismaMssql } from '@prisma/adapter-mssql';
+import { PrismaClient } from 'prisma/generated/prisma/client';
 
 @Injectable()
-export class PrismaService extends PrismaClient implements OnModuleInit {
+export class PrismaService extends PrismaClient {
   constructor() {
     const adapter = new PrismaMssql({
       server: process.env.DB_HOST || 'localhost',
       port: 1433,
       user: process.env.DB_USER,
-      password: process.env.DB_PASS,
+      password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
+      options: {
+        encrypt: true,
+        trustServerCertificate: true,
+      },
     });
 
     super({
       adapter,
     });
-  }
-
-  async onModuleInit() {
-    try {
-      await this.$connect();
-      Logger.log('Connected to the database successfully', 'PrismaService');
-    } catch (error) {
-      Logger.log('Failed to connect to the database', 'PrismaService', error);
-    }
   }
 }

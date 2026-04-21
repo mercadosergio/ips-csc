@@ -6,7 +6,9 @@ export class ClientsService {
   constructor(private prisma: PrismaService) {}
 
   findAll() {
-    return this.prisma.client.findMany();
+    return this.prisma.client.findMany({
+      include: { Order: true },
+    });
   }
 
   findOne(id: number) {

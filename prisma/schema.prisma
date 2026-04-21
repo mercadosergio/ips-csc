@@ -1,97 +1,25 @@
 generator client {
   provider     = "prisma-client"
-  output       = "../src/generated/prisma"
-  moduleFormat = "cjs"
+  output       = "../prisma/generated/prisma"
   engineType   = "binary"
+  moduleFormat = "cjs"
 }
 
 datasource db {
   provider = "sqlserver"
 }
 
-model Cita {
-  IdCita       Int      @id(map: "PK__Cita__394B0202C81978E9")
-  IdPaciente   Int
-  FechaCita    DateTime @db.Date
-  Estado       String   @db.VarChar(50)
-  Obsevaciones String?  @db.VarChar(100)
-  Paciente     Paciente @relation(fields: [IdPaciente], references: [IdPaciente], onUpdate: NoAction, map: "FK_PacienteCita")
-}
-
 model Client {
-  id       Int     @id(map: "PK__Client__3213E83F626DEC79") @default(autoincrement())
+  id       Int     @id(map: "PK__Client__3213E83F83A9D2AF") @default(autoincrement())
   document String? @db.VarChar(20)
   fullName String? @db.VarChar(200)
   Order    Order[]
 }
 
-model cursos {
-  idCurso       Int             @id(map: "PK__cursos__8551ED05EE035922") @default(autoincrement())
-  nombreCurso   String          @unique(map: "UQ__cursos__523B321E634E45F3") @db.VarChar(40)
-  duracionHoras Int
-  inscripciones inscripciones[]
-
-  @@index([nombreCurso], map: "ix_documento")
-}
-
-model estudiantes {
-  idEstudiante   Int             @id(map: "PK__estudian__A4665421DCEC13A6") @default(autoincrement())
-  documento      String          @unique(map: "UQ__estudian__A25B3E61136D51BC") @db.VarChar(10)
-  nombreCompleto String          @db.VarChar(40)
-  inscripciones  inscripciones[]
-
-  @@index([documento], map: "ix_documento")
-}
-
-model inscripciones {
-  idInscripcion    Int         @id(map: "PK__inscripc__3D58AB69B1D24B1A") @default(autoincrement())
-  idEstudiante     Int
-  idCurso          Int
-  fechaInscripcion DateTime    @db.Date
-  cursos           cursos      @relation(fields: [idCurso], references: [idCurso], onDelete: Cascade, map: "fk_inscripciones_cursos")
-  estudiantes      estudiantes @relation(fields: [idEstudiante], references: [idEstudiante], onDelete: Cascade, map: "fk_inscripciones_estudiantes")
-
-  @@index([idCurso], map: "ix_idCurso")
-  @@index([idEstudiante], map: "ix_idEstudiante")
-}
-
 model Order {
-  id        Int       @id(map: "PK__Order__3213E83F90E9D4AD") @default(autoincrement())
+  id        Int       @id(map: "PK__Order__3213E83FAC0D25D8") @default(autoincrement())
   createdAt DateTime? @db.DateTime
   total     Decimal   @db.Decimal(18, 2)
   clientId  Int?
   Client    Client?   @relation(fields: [clientId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_client_id")
-}
-
-model Paciente {
-  IdPaciente     Int      @id(map: "PK__Paciente__C93DB49BACF058DD")
-  Documento      Int
-  NombreCompleto String   @db.VarChar(50)
-  Telefono       String?  @db.VarChar(10)
-  FechaCreacion  DateTime @db.Date
-  Cita           Cita[]
-}
-
-model Producto {
-  IdProducto   Int            @id(map: "PK__Producto__098892107FE56D97") @default(autoincrement())
-  Nombre       String         @db.VarChar(50)
-  Precio       Decimal        @db.Decimal(10, 2)
-  Activo       Boolean
-  VentaDetalle VentaDetalle[]
-}
-
-model Venta {
-  IdVenta      Int            @id(map: "PK__Venta__BC1240BDFF2FFC4B") @default(autoincrement())
-  FechaVenta   DateTime       @db.Date
-  VentaDetalle VentaDetalle[]
-}
-
-model VentaDetalle {
-  IdDetalle      Int      @id(map: "PK__VentaDet__E43646A5CB05E502") @default(autoincrement())
-  IdVenta        Int
-  IdProducto     Int
-  Cantidad       Int
-  PrecioUnitario Decimal  @db.Decimal(10, 2)
-  Producto       Producto @relation(fields: [IdProducto], references: [IdProducto], onUpdate: NoAction, map: "FK_VentaDetalle_Producto")
-  Venta          Venta    @relation(fields: [IdVenta], references: [IdVenta], onUpdate: NoAction, map: "FK_VentaDetalle_Venta")
 }
